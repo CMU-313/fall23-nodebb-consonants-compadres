@@ -10,12 +10,12 @@ module.exports = function (User) {
         if (!(parseInt(uid, 10) > 0)) {
             return;
         }
-        const userData = await db.getObjectFields(`user:${uid}`, ['username','accounttype']);
-        if (userData.username.includes(" ")) {
+        const userData = await db.getObjectFields(`user:${uid}`, ['username', 'accounttype']);
+        if (userData.username.includes(' ')) {
             return;
         }
-        await User.setUserField(uid, 'username', userData.username + ' | ' + userData.accounttype);
-    };
+        await User.setUserField(uid, 'username', `${userData.username} | ${userData.accounttype}`);
+    }
 
     User.updateLastOnlineTime = async function (uid) {
         if (!(parseInt(uid, 10) > 0)) {

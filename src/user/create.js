@@ -46,8 +46,9 @@ module.exports = function (User) {
     // Documentation
     async function create(data) {
         const timestamp = data.timestamp || Date.now();
+
         let userData = {
-            username: data.username + " | " + data.accounttype,
+            username: `${data.username} | ${data.accounttype}`,
             userslug: data.userslug,
             accounttype: data.accounttype || 'student',
             email: data.email || '',

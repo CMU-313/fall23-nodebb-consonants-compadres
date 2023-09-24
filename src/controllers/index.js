@@ -180,7 +180,8 @@ Controllers.register = async function (req, res, next) {
             breadcrumbs: helpers.buildBreadcrumbs([{
                 text: '[[register:register]]',
             }]),
-            // Documentation
+            // documentation
+            // adding to html code 
             regFormEntry: [
                 {
                     label: 'Account Type',
