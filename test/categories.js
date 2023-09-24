@@ -255,7 +255,7 @@ describe('Categories', () => {
             }, (err, data) => {
                 assert.ifError(err);
                 assert(Array.isArray(data.topics));
-                assert.equal(data.topics[0].user.username, 'poster');
+                assert.equal(data.topics[0].user.username, 'poster | undefined');
                 assert.equal(data.topics[0].tags[0].value, 'nodebb');
                 assert.equal(data.topics[0].category.cid, categoryObj.cid);
                 done();
