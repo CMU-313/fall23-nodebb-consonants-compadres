@@ -130,7 +130,7 @@ describe('authentication', () => {
                 }, (err, response, body) => {
                     assert.ifError(err);
                     assert(body);
-                    assert.equal(body.username, 'admin');
+                    assert.equal(body.username, 'admin | instructor');
                     assert.equal(body.uid, newUid);
                     user.getSettings(body.uid, (err, settings) => {
                         assert.ifError(err);
