@@ -261,6 +261,7 @@ authenticationController.login = async (req, res, next) => {
         const isEmailLogin = loginWith.includes('email') && req.body.username && utils.isEmailValid(req.body.username);
         const isUsernameLogin = loginWith.includes('username') && !validator.isEmail(req.body.username);
         if (isEmailLogin) {
+            // documentation
             var username = await user.getUsernameByEmail(req.body.username);
             if (username.includes(' | ')) {
                 username = username.split(" | ")[0];
