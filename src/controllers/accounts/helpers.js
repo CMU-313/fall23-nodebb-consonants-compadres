@@ -99,6 +99,7 @@ helpers.getUserDataByUserSlug = async function (userslug, callerUID, query = {})
 
     userData.fullname = escape(userData.fullname);
     userData.location = escape(userData.location);
+    userData.role = escape(userData.role);
     userData.signature = escape(userData.signature);
     userData.birthday = validator.escape(String(userData.birthday || ''));
     userData.moderationNote = validator.escape(String(userData.moderationNote || ''));

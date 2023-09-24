@@ -7,6 +7,7 @@ export type UserObjectSlim = {
   displayname: string;
   userslug: string;
   picture: string;
+  role: string;
   status: StatusObject;
   postcount: number;
   reputation: number;
@@ -23,6 +24,7 @@ export type UserObjectSlim = {
   lastonlineISO: string;
   banned_until: number;
   banned_until_readable: string;
+
 };
 
 export type UserObjectACP = UserObjectSlim & {
