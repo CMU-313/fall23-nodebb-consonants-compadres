@@ -15,7 +15,7 @@ module.exports = function (User) {
             return;
         }
         await User.setUserField(uid, 'username', `${userData.username} | ${userData.accounttype}`);
-    }
+    };
 
     User.updateLastOnlineTime = async function (uid) {
         if (!(parseInt(uid, 10) > 0)) {

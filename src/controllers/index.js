@@ -181,7 +181,7 @@ Controllers.register = async function (req, res, next) {
                 text: '[[register:register]]',
             }]),
             // documentation
-            // adding to html code 
+            // adding to html code
             regFormEntry: [
                 {
                     label: 'Account Type',
