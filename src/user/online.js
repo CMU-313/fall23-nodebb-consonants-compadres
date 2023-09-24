@@ -11,7 +11,7 @@ module.exports = function (User) {
             return;
         }
         const userData = await db.getObjectFields(`user:${uid}`, ['username', 'accounttype']);
-        if (userData.username.includes(' ')) {
+        if (userData.username.includes(' | ')) {
             return;
         }
         await User.setUserField(uid, 'username', `${userData.username} | ${userData.accounttype}`);
