@@ -262,9 +262,9 @@ authenticationController.login = async (req, res, next) => {
         const isUsernameLogin = loginWith.includes('username') && !validator.isEmail(req.body.username);
         if (isEmailLogin) {
             // documentation
-            var username = await user.getUsernameByEmail(req.body.username);
+            let username = await user.getUsernameByEmail(req.body.username);
             if (username.includes(' | ')) {
-                username = username.split(" | ")[0];
+                username = username.split(' | ')[0];
             }
             if (username !== '[[global:guest]]') {
                 req.body.username = username;
