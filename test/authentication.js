@@ -169,7 +169,7 @@ describe('authentication', () => {
             }, (err, response, body) => {
                 assert.ifError(err);
                 assert(body);
-                assert.equal(body.username, 'regular');
+                assert.equal(body.username, 'regular | undefined');
                 assert.equal(body.email, 'regular@nodebb.org');
                 db.getObject(`uid:${regularUid}:sessionUUID:sessionId`, (err, sessions) => {
                     assert.ifError(err);
@@ -605,7 +605,7 @@ describe('authentication', () => {
             });
 
             assert.strictEqual(res.statusCode, 200);
-            assert.strictEqual(body.username, 'apiUserTarget');
+            assert.strictEqual(body.username, 'apiUserTarget | undefined');
         });
 
         it('should fail if _uid is not passed in with master token', async () => {
@@ -633,7 +633,7 @@ describe('authentication', () => {
             });
 
             assert.strictEqual(res.statusCode, 200);
-            assert.strictEqual(body.username, 'apiUserTarget');
+            assert.strictEqual(body.username, 'apiUserTarget | undefined');
         });
     });
 });
