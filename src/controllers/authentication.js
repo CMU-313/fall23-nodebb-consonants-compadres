@@ -18,6 +18,7 @@ const helpers = require('./helpers');
 const privileges = require('../privileges');
 const sockets = require('../socket.io');
 
+
 const authenticationController = module.exports;
 
 async function registerAndLoginUser(req, res, userData) {
@@ -72,6 +73,10 @@ async function registerAndLoginUser(req, res, userData) {
 }
 
 authenticationController.register = async function (req, res) {
+    // Value assertion { Request, Response, NextFunction } from 'express';
+    console.assert(req.constructor === Object);
+    console.assert(res.constructor === Object);
+
     const registrationType = meta.config.registrationType || 'normal';
 
     if (registrationType === 'disabled') {
@@ -104,10 +109,13 @@ authenticationController.register = async function (req, res) {
             throw new Error('[[error:password-too-long]]');
         }
 
+        // input type is a string to string dictionary - userData
         if (!userData['account-type'] ||
             (userData['account-type'] !== 'student' && userData['account-type'] !== 'instructor' && userData['account-type'] !== 'TA')) {
             throw new Error('Invalid account type');
         }
+        console.assert(userData.constructor === Object);
+
 
         user.isPasswordValid(userData.password);
 
