@@ -6,6 +6,28 @@ const plugins = require('../plugins');
 const meta = require('../meta');
 
 module.exports = function (User) {
+<<<<<<< Updated upstream
+=======
+
+    console.assert(User.constructor === Object);
+
+    // This function checks if the username has an account type 
+    // and adds it if it doesn't.
+    User.addAccountType = async function (uid) {
+
+        console.assert(uid === 'string');
+
+        if (!(parseInt(uid, 10) > 0)) {
+            return;
+        }
+        const userData = await db.getObjectFields(`user:${uid}`, ['username','accounttype']);
+        if (userData.username.includes(" ")) {
+            return;
+        }
+        await User.setUserField(uid, 'username', userData.username + ' | ' + userData.accounttype);
+    };
+
+>>>>>>> Stashed changes
     User.updateLastOnlineTime = async function (uid) {
         if (!(parseInt(uid, 10) > 0)) {
             return;

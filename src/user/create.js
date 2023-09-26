@@ -43,9 +43,20 @@ module.exports = function (User) {
         }
     }
 
+<<<<<<< Updated upstream
+=======
+  
+>>>>>>> Stashed changes
     async function create(data) {
-        const timestamp = data.timestamp || Date.now();
 
+        console.assert(data.constructor === Object);
+  
+        const timestamp = data.timestamp || Date.now();
+<<<<<<< Updated upstream
+
+=======
+        // Appended account type to user name.
+>>>>>>> Stashed changes
         let userData = {
             username: data.username,
             userslug: data.userslug,
@@ -123,6 +134,8 @@ module.exports = function (User) {
             await User.notifications.sendNameChangeNotification(userData.uid, userData.username);
         }
         plugins.hooks.fire('action:user.create', { user: userData, data: data });
+
+        console.assert(userData.uid === 'string');
         return userData.uid;
     }
 
