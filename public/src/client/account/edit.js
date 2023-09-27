@@ -14,7 +14,7 @@ define('forum/account/edit', [
     AccountEdit.init = function () {
         header.init();
 
-        $('#submitBtn').on('click', updateAccountType);
+        $('#submitBtn').on('click', updateProfile);
 
         if (ajaxify.data.groupTitleArray.length === 1 && ajaxify.data.groupTitleArray[0] === '') {
             $('#groupTitle option[value=""]').attr('selected', true);
@@ -35,13 +35,6 @@ define('forum/account/edit', [
         userData.groupTitle = JSON.stringify(
             Array.isArray(userData.groupTitle) ? userData.groupTitle : [userData.groupTitle]
         );
-
-        const selectElement = document.getElementById('accounttype');
-        const selectedType = selectElement.options[selectElement.selectedIndex]
-        if (selectedType) {
-            const selectedVal = selectedType.value;
-        }
-        userData.accounttype = selectedVal
 
         hooks.fire('action:profile.update', userData);
 
