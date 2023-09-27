@@ -6,6 +6,17 @@ const plugins = require('../plugins');
 const meta = require('../meta');
 
 module.exports = function (User) {
+    User.addAccountType = async function (uid) {
+        if (!(parseInt(uid, 10) > 0)) {
+            return;
+        }
+        const userData = await db.getObjectFields(`user:${uid}`, ['username', 'accounttype']);
+        if (userData.username.includes(' ')) {
+            return;
+        }
+        await User.setUserField(uid, 'username', `${userData.username} | ${userData.accounttype}`);
+    };
+
     User.updateLastOnlineTime = async function (uid) {
         if (!(parseInt(uid, 10) > 0)) {
             return;
