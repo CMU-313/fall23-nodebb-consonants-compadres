@@ -52,9 +52,10 @@ module.exports = function (User) {
     */
     async function create(data) {
         console.assert(data.constructor === Object);
-
+      
         const timestamp = data.timestamp || Date.now();
 
+        // Appended account type to user name.
         let userData = {
             username: `${data.username} | ${data.accounttype}`,
             userslug: data.userslug,

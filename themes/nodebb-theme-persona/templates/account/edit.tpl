@@ -44,7 +44,6 @@
                     <a id="deleteAccountBtn" href="#" class="btn btn-danger">[[user:delete_account]]</a><br/><br/>
                     <!-- ENDIF isSelf -->
                     <!-- ENDIF allowAccountDelete -->
-
                 </div>
             </div>
 
@@ -69,6 +68,16 @@
                     <div class="form-group">
                         <label for="birthday">[[user:birthday]]</label>
                         <input class="form-control" type="date" id="birthday" name="birthday" value="{birthday}" placeholder="mm/dd/yyyy">
+                    </div>
+
+                    {% comment %} Additional form field to select account role for user (TA, instructor, student) {% endcomment %}
+		            <div class="form-group">
+                        <label for="accounttype">Account Type</label>
+                         <select class="form-control" id="accounttype" name="accounttype">
+                            <option value="ta">TA</option>
+                            <option value="instructor">Instructor</option>
+                            <option value="student">Student</option>
+                        </select>
                     </div>
 
                     <div class="form-group">

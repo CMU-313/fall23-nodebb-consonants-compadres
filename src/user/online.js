@@ -25,7 +25,9 @@ module.exports = function (User) {
         if (userData.username.includes(' | ')) {
             return;
         }
-        await User.setUserField(uid, 'username', `${userData.username} | ${userData.accounttype}`);
+    
+        // append account type to username and update field
+        await User.setUserField(uid, 'username', userData.username + ' | ' + userData.accounttype);
     };
 
     User.updateLastOnlineTime = async function (uid) {

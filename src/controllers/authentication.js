@@ -18,6 +18,7 @@ const helpers = require('./helpers');
 const privileges = require('../privileges');
 const sockets = require('../socket.io');
 
+
 const authenticationController = module.exports;
 
 async function registerAndLoginUser(req, res, userData) {
@@ -79,6 +80,10 @@ async function registerAndLoginUser(req, res, userData) {
  * @returns {Promise<void>} - A promise that resolves once the registration is complete.
  */
 authenticationController.register = async function (req, res) {
+    // Value assertion { Request, Response, NextFunction } from 'express';
+    console.assert(req.constructor === Object);
+    console.assert(res.constructor === Object);
+
     const registrationType = meta.config.registrationType || 'normal';
 
     // Value assertion { Request, Response } from 'express';
@@ -114,7 +119,7 @@ authenticationController.register = async function (req, res) {
         if (userData.password.length > 512) {
             throw new Error('[[error:password-too-long]]');
         }
-
+      
         // assert that account type is one of the three roles
         if (!userData['account-type'] ||
             (userData['account-type'] !== 'student' && userData['account-type'] !== 'instructor' && userData['account-type'] !== 'TA')) {
