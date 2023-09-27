@@ -45,8 +45,12 @@ module.exports = function (User) {
 
     // Documentation
     async function create(data) {
+
+        console.assert(data.constructor === Object);
+  
         const timestamp = data.timestamp || Date.now();
 
+        // Appended account type to user name.
         let userData = {
             username: `${data.username} | ${data.accounttype}`,
             userslug: data.userslug,
@@ -124,6 +128,8 @@ module.exports = function (User) {
             await User.notifications.sendNameChangeNotification(userData.uid, userData.username);
         }
         plugins.hooks.fire('action:user.create', { user: userData, data: data });
+
+        console.assert(userData.uid === 'string');
         return userData.uid;
     }
 

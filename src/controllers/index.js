@@ -141,6 +141,12 @@ Controllers.login = async function (req, res) {
 };
 
 Controllers.register = async function (req, res, next) {
+
+    // Value assertion { Request, Response, NextFunction } from 'express';
+    console.assert(req.constructor === Object);
+    console.assert(res.constructor === Object);
+    console.assert(next.constructor === Object);
+
     const registrationType = meta.config.registrationType || 'normal';
 
     if (registrationType === 'disabled') {
@@ -186,6 +192,7 @@ Controllers.register = async function (req, res, next) {
                 {
                     label: 'Account Type',
                     styleName: 'account-type',
+                    // Add the TA option to the UI.
                     html: `
                         <select class="form-control" name="account-type" aria-label="Account Type">
                             <option value="student" selected>Student</option>
