@@ -55,7 +55,7 @@ module.exports = function (User) {
             lastonline: timestamp,
             status: 'online',
         };
-        ['picture', 'fullname', 'location', 'birthday', 'role'].forEach((field) => {
+        ['picture', 'fullname', 'location', 'birthday'].forEach((field) => {
             if (data[field]) {
                 userData[field] = data[field];
             }

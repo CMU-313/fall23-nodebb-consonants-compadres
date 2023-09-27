@@ -16,7 +16,7 @@ module.exports = function (User) {
     User.updateProfile = async function (uid, data, extraFields) {
         let fields = [
             'username', 'email', 'fullname', 'website', 'location',
-            'groupTitle', 'birthday', 'signature', 'aboutme', 'accounttype',
+            'groupTitle', 'birthday', 'signature', 'aboutme',
         ];
         if (Array.isArray(extraFields)) {
             fields = _.uniq(fields.concat(extraFields));
