@@ -15,7 +15,7 @@ const intFields = [
     'uid', 'postcount', 'topiccount', 'reputation', 'profileviews',
     'banned', 'banned:expire', 'email:confirmed', 'joindate', 'lastonline',
     'lastqueuetime', 'lastposttime', 'followingCount', 'followerCount',
-    'blocksCount', 'passwordExpiry', 'mutedUntil', 'role',
+    'blocksCount', 'passwordExpiry', 'mutedUntil',
 ];
 
 module.exports = function (User) {

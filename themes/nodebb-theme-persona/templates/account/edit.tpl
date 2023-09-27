@@ -44,7 +44,6 @@
                     <a id="deleteAccountBtn" href="#" class="btn btn-danger">[[user:delete_account]]</a><br/><br/>
                     <!-- ENDIF isSelf -->
                     <!-- ENDIF allowAccountDelete -->
-
                 </div>
             </div>
 
@@ -71,17 +70,13 @@
                         <input class="form-control" type="date" id="birthday" name="birthday" value="{birthday}" placeholder="mm/dd/yyyy">
                     </div>
 
-		     <div class="form-group">
-                        <label for="role">[[user:role]]</label>
-                        <select class="form-control" id="role" name="role" <!-- IF allowMultipleBadges --> size="{groupSelectSize}" multiple<!-- ENDIF allowMultipleBadges -->>
-                            <option value="student" selected>Student</option>
+		            <div class="form-group">
+                        <label for="accounttype">Account Type</label>
+                         <select class="form-control" id="accounttype" name="accounttype">
                             <option value="ta">TA</option>
                             <option value="instructor">Instructor</option>
+                            <option value="student">Student</option>
                         </select>
-                        <!-- IF allowMultipleBadges -->
-                        <span>[[user:group-order-help]]</span>
-                        <i role="button" component="group/order/up" class="fa fa-chevron-up"></i> <i role="button" component="group/order/down" class="fa fa-chevron-down"></i>
-                        <!-- ENDIF -->
                     </div>
 
                     <div class="form-group">
