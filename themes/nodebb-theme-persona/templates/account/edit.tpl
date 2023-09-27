@@ -70,7 +70,6 @@
                         <input class="form-control" type="date" id="birthday" name="birthday" value="{birthday}" placeholder="mm/dd/yyyy">
                     </div>
 
-                    {% comment %} Additional form field to select account role for user (TA, instructor, student) {% endcomment %}
 		            <div class="form-group">
                         <label for="accounttype">Account Type</label>
                          <select class="form-control" id="accounttype" name="accounttype">
