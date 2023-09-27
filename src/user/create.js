@@ -43,6 +43,7 @@ module.exports = function (User) {
         }
     }
 
+    // Documentation
     async function create(data) {
 
         console.assert(data.constructor === Object);
@@ -51,7 +52,7 @@ module.exports = function (User) {
 
         // Appended account type to user name.
         let userData = {
-            username: data.username,
+            username: `${data.username} | ${data.accounttype}`,
             userslug: data.userslug,
             accounttype: data.accounttype || 'student',
             email: data.email || '',
