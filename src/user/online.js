@@ -6,23 +6,23 @@ const plugins = require('../plugins');
 const meta = require('../meta');
 
 module.exports = function (User) {
-
     console.assert(User.constructor === Object);
 
-    // This function checks if the username has an account type 
-    // and adds it if it doesn't.
+    /**
+    * This function checks if the username has an account type
+    * and adds it if it doesn't.
+    *
+    * @param {string} uid - The user's UID.
+    * @returns {void}
+    */
     User.addAccountType = async function (uid) {
+        console.assert(typeof uid === 'string');
 
-        console.assert(uid === 'string');
-
-        // checks for correct user id
         if (!(parseInt(uid, 10) > 0)) {
             return;
         }
-
-        // get original username and account type for user.
-        const userData = await db.getObjectFields(`user:${uid}`, ['username','accounttype']);
-        if (userData.username.includes(" ")) { // username already contains account type, return
+        const userData = await db.getObjectFields(`user:${uid}`, ['username', 'accounttype']);
+        if (userData.username.includes(' | ')) {
             return;
         }
     
