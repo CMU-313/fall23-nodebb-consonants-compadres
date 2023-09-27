@@ -6,8 +6,6 @@ const plugins = require('../plugins');
 const meta = require('../meta');
 
 module.exports = function (User) {
-<<<<<<< Updated upstream
-=======
 
     console.assert(User.constructor === Object);
 
@@ -27,7 +25,6 @@ module.exports = function (User) {
         await User.setUserField(uid, 'username', userData.username + ' | ' + userData.accounttype);
     };
 
->>>>>>> Stashed changes
     User.updateLastOnlineTime = async function (uid) {
         if (!(parseInt(uid, 10) > 0)) {
             return;

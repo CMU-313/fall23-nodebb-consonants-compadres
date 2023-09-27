@@ -43,20 +43,13 @@ module.exports = function (User) {
         }
     }
 
-<<<<<<< Updated upstream
-=======
-  
->>>>>>> Stashed changes
     async function create(data) {
 
         console.assert(data.constructor === Object);
   
         const timestamp = data.timestamp || Date.now();
-<<<<<<< Updated upstream
 
-=======
         // Appended account type to user name.
->>>>>>> Stashed changes
         let userData = {
             username: data.username,
             userslug: data.userslug,
