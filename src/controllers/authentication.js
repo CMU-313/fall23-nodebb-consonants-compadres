@@ -81,7 +81,7 @@ async function registerAndLoginUser(req, res, userData) {
 authenticationController.register = async function (req, res) {
     const registrationType = meta.config.registrationType || 'normal';
 
-    // Value assertion { Request, Response, NextFunction } from 'express';
+    // Value assertion { Request, Response } from 'express';
     console.assert(req.constructor === Object);
     console.assert(res.constructor === Object);
 
@@ -115,7 +115,7 @@ authenticationController.register = async function (req, res) {
             throw new Error('[[error:password-too-long]]');
         }
 
-        // Documentation
+        // assert that account type is one of the three roles
         if (!userData['account-type'] ||
             (userData['account-type'] !== 'student' && userData['account-type'] !== 'instructor' && userData['account-type'] !== 'TA')) {
             throw new Error('Invalid account type');
@@ -286,8 +286,8 @@ authenticationController.login = async (req, res, next) => {
         const isEmailLogin = loginWith.includes('email') && req.body.username && utils.isEmailValid(req.body.username);
         const isUsernameLogin = loginWith.includes('username') && !validator.isEmail(req.body.username);
         if (isEmailLogin) {
-            // documentation
             let username = await user.getUsernameByEmail(req.body.username);
+            // remove additional role substring from username, if it exists
             if (username.includes(' | ')) {
                 username = username.split(' | ')[0];
             }
