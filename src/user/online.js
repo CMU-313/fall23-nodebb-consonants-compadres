@@ -6,7 +6,18 @@ const plugins = require('../plugins');
 const meta = require('../meta');
 
 module.exports = function (User) {
+    console.assert(User.constructor === Object);
+
+    /**
+    * This function checks if the username has an account type
+    * and adds it if it doesn't.
+    *
+    * @param {string} uid - The user's UID.
+    * @returns {void}
+    */
     User.addAccountType = async function (uid) {
+        console.assert(typeof uid === 'string');
+
         if (!(parseInt(uid, 10) > 0)) {
             return;
         }

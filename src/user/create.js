@@ -44,7 +44,15 @@ module.exports = function (User) {
     }
 
     // Documentation
+    /**
+    * Creates a new user and performs user registration.
+    *
+    * @param {Object} data - User data for registration.
+    * @returns {string} userData.uid - Returns the user's UID (as a string) upon successful registration.
+    */
     async function create(data) {
+        console.assert(data.constructor === Object);
+
         const timestamp = data.timestamp || Date.now();
 
         let userData = {
@@ -124,6 +132,8 @@ module.exports = function (User) {
             await User.notifications.sendNameChangeNotification(userData.uid, userData.username);
         }
         plugins.hooks.fire('action:user.create', { user: userData, data: data });
+
+        console.assert(userData.uid === 'string');
         return userData.uid;
     }
 

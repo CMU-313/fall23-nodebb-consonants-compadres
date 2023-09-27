@@ -15,6 +15,14 @@ const meta = require('../src/meta');
 const privileges = require('../src/privileges');
 const helpers = require('./helpers');
 
+
+/**
+* Test suites for authentication functionality
+*
+* @param {void}
+* @returns {void}
+*/
+
 describe('authentication', () => {
     const jar = request.jar();
     let regularUid;

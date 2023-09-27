@@ -71,8 +71,19 @@ async function registerAndLoginUser(req, res, userData) {
     return complete;
 }
 
+/**
+ * Registers a user and handles the registration process.
+ *
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @returns {Promise<void>} - A promise that resolves once the registration is complete.
+ */
 authenticationController.register = async function (req, res) {
     const registrationType = meta.config.registrationType || 'normal';
+
+    // Value assertion { Request, Response, NextFunction } from 'express';
+    console.assert(req.constructor === Object);
+    console.assert(res.constructor === Object);
 
     if (registrationType === 'disabled') {
         return res.sendStatus(403);
@@ -109,6 +120,7 @@ authenticationController.register = async function (req, res) {
             (userData['account-type'] !== 'student' && userData['account-type'] !== 'instructor' && userData['account-type'] !== 'TA')) {
             throw new Error('Invalid account type');
         }
+        console.assert(userData.constructor === Object);
 
         user.isPasswordValid(userData.password);
 
@@ -238,7 +250,20 @@ authenticationController.registerAbort = function (req, res) {
     }
 };
 
+/**
+ * Handles user login authentication.
+ *
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @param {Function} next - The next middleware function.
+ * @returns {void}
+ */
 authenticationController.login = async (req, res, next) => {
+    // Value assertion for req, res, and next
+    console.assert(req.constructor === Object);
+    console.assert(res.constructor === Object);
+    console.assert(typeof next === 'function', "Parameter 'next' must be a function.");
+
     let { strategy } = await plugins.hooks.fire('filter:login.override', { req, strategy: 'local' });
     if (!passport._strategy(strategy)) {
         winston.error(`[auth/override] Requested login strategy "${strategy}" not found, reverting back to local login strategy.`);
@@ -353,12 +378,25 @@ authenticationController.doLogin = async function (req, uid) {
     await authenticationController.onSuccessfulLogin(req, uid);
 };
 
+/**
+ * Handles the successful login of a user.
+ *
+ * @param {Object} req - The Express request object.
+ * @param {string} uid - The user's UID.
+ * @returns {<boolean>} - Returns true if the login is successful.
+ */
 authenticationController.onSuccessfulLogin = async function (req, uid) {
     /*
      * Older code required that this method be called from within the SSO plugin.
      * That behaviour is no longer required, onSuccessfulLogin is now automatically
      * called in NodeBB core. However, if already called, return prematurely
      */
+
+    // Assert the type of req
+    console.assert(req.constructor === Object);
+    // Assert the type of uid
+    console.assert(typeof uid === 'string');
+
     if (req.loggedIn && !req.session.forceLogin) {
         return true;
     }
@@ -392,7 +430,7 @@ authenticationController.onSuccessfulLogin = async function (req, uid) {
                 req.session.save(resolve);
             }),
             user.auth.addSession(uid, req.sessionID),
-            // Documentation
+            // Documentation for this function is added
             user.addAccountType(uid),
             user.updateLastOnlineTime(uid),
             user.updateOnlineUsers(uid),

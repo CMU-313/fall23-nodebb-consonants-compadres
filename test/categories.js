@@ -13,6 +13,13 @@ const User = require('../src/user');
 const groups = require('../src/groups');
 const privileges = require('../src/privileges');
 
+/**
+* Test suites for user account informations
+*
+* @param {void}
+* @returns {void}
+*/
+
 describe('Categories', () => {
     let categoryObj;
     let posterUid;
