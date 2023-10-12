@@ -27,7 +27,7 @@ define('forum/account/edit', [
         updateAboutMe();
         handleGroupSort();
     };
-
+    // updateProfile(): void -> boolean
     function updateProfile() {
         const userData = $('form[component="profile/edit/form"]').serializeObject();
         userData.uid = ajaxify.data.uid;

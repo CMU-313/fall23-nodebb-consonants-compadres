@@ -91,6 +91,10 @@ function escapeTitle(topicData) {
 }
 
 function modifyTopic(topic, fields) {
+
+    console.assert(topic.constructor === Object);
+    console.assert(typeof fields === 'string');
+
     if (!topic) {
         return;
     }
@@ -138,5 +142,10 @@ function modifyTopic(topic, fields) {
                 class: escaped.replace(/\s/g, '-'),
             };
         });
+    }
+
+    // Check if there is a tag called anonymous and set isAnonymous equal to true if there is.
+    if (topic.tags) {
+        topic.isAnonymous = topic.tags.reduce((a, b) => a || b.value === 'anonymous', false);
     }
 }

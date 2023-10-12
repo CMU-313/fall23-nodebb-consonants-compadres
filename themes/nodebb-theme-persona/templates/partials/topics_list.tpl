@@ -60,7 +60,14 @@
                 </span>
                 {{{ end }}}
 
-                <small class="hidden-xs"><span class="timeago" title="{topics.timestampISO}"></span> &bull; <a href="<!-- IF topics.user.userslug -->{config.relative_path}/user/{topics.user.userslug}<!-- ELSE -->#<!-- ENDIF topics.user.userslug -->">{topics.user.displayname}</a></small>
+                <!-- Added if-else statement to check whether the post is anonymous. If so, mark the user name as Anonymous. Else show the user name. -->
+                <small class="hidden-xs"><span class="timeago" title="{topics.timestampISO}"></span> &bull; <a href="<!-- IF topics.user.userslug -->{config.relative_path}/user/{topics.user.userslug}<!-- ELSE -->#<!-- ENDIF topics.user.userslug -->">
+                {{{ if topics.isAnonymous }}}
+                    Anonymous
+                {{{ else }}}
+                    {topics.user.displayname}
+                {{{ endif }}}
+                </a></small>
                 <small class="visible-xs-inline">
                     <!-- IF topics.teaser.timestamp -->
                     <span class="timeago" title="{topics.teaser.timestampISO}"></span>
