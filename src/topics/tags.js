@@ -19,7 +19,6 @@ module.exports = function (Topics) {
         if (!Array.isArray(tags) || !tags.length) {
             return;
         }
-
         const cid = await Topics.getTopicField(tid, 'cid');
         const topicSets = tags.map(tag => `tag:${tag}:topics`).concat(
             tags.map(tag => `cid:${cid}:tag:${tag}:topics`)
