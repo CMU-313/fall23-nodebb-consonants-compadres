@@ -12,7 +12,8 @@
         </div>
         <div class="col-xs-3 text-right">
             <!-- IF showInviteButton -->
-            <button component="user/invite" class="btn btn-success"><i class="fa fa-users"></i> [[users:invite]]</button>
+            <button component="user/invite" class="btn btn-success">
+            <i class="fa fa-users"></i> [[users:invite]]</button>
             <!-- ENDIF showInviteButton -->
         </div>
         <!-- IF displayUserSearch -->

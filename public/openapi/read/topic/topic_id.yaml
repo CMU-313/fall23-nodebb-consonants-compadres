@@ -42,6 +42,10 @@ get:
                     nullable: true
                   titleRaw:
                     type: string
+                  getEndorsed:
+                    type: boolean
+                  isEndorsed:
+                    type: boolean
                   tags:
                     type: array
                     items:

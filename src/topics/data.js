@@ -139,4 +139,10 @@ function modifyTopic(topic, fields) {
             };
         });
     }
+
+    // Option to consider the endorsed as a tag to filter using it 
+    if(topic.tags){
+        topic.isEndorsed = topic.tags.reduce((a,b) => a || b.value == "endorsed" 
+        || b.value == "Endorsed", false);
+    }
 }

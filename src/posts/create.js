@@ -29,14 +29,8 @@ module.exports = function (Posts) {
         }
 
         const pid = await db.incrObjectField('global', 'nextPid');
-        let postData = {
-            pid: pid,
-            uid: uid,
-            tid: tid,
-            content: content,
-            timestamp: timestamp,
-        };
-
+    
+        
         if (data.toPid) {
             postData.toPid = data.toPid;
         }
@@ -47,6 +41,15 @@ module.exports = function (Posts) {
             postData.handle = data.handle;
         }
 
+        let postData = {
+            pid: pid,
+            uid: uid,
+            tid: tid,
+            content: content,
+            timestamp: timestamp,
+        };
+
+
         let result = await plugins.hooks.fire('filter:post.create', { post: postData, data: data });
         postData = result.post;
         await db.setObject(`post:${postData.pid}`, postData);
@@ -56,6 +59,8 @@ module.exports = function (Posts) {
 
         await Promise.all([
             db.sortedSetAdd('posts:pid', timestamp, postData.pid),
+            // Checking pid : setting endorsed as false 
+            db.set(`posts:${postData.pid}:endorsed`, 'false'),
             db.incrObjectField('global', 'postCount'),
             user.onNewPostMade(postData),
             topics.onNewPostMade(postData),
