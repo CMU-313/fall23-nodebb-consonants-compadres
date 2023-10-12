@@ -7,6 +7,7 @@
     </div>
 
     <small class="pull-left">
+    <!-- If isAnonymous is true, hide the user name. -->
         <strong>
             {{{if isAnonymous}}}
             Anonymous User

@@ -140,6 +140,7 @@ function modifyTopic(topic, fields) {
         });
     }
 
+    // Check if there is a tag called anonymous and set isAnonymous equal to true if there is.
     if (topic.tags){
         topic.isAnonymous = topic.tags.reduce((a, b) => a || b.value == "anonymous", false);
     }
