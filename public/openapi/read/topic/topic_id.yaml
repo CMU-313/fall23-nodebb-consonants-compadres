@@ -75,6 +75,8 @@ get:
                           type: number
                         upvotes:
                           type: number
+                        endorse:
+                          type: number
                         downvotes:
                           type: number
                         bookmarks:

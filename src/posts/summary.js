@@ -11,7 +11,21 @@ const categories = require('../categories');
 const utils = require('../utils');
 
 module.exports = function (Posts) {
+
+    /**
+    * Get a summary of posts by their IDs.
+    *
+    * @param {number[]} pids - An array of post IDs.
+    * @param {number} uid - The user ID.
+    * @param {object} options - Options for post summary.
+    * @returns {Promise<Object[]>} An array of post summaries.
+    */
     Posts.getPostSummaryByPids = async function (pids, uid, options) {
+
+        console.assert(Array.isArray(pids), 'pids should be an array of post IDs');
+        console.assert(typeof uid === 'number', 'uid should be a number');
+        console.assert(typeof options === 'object', 'options should be an object');
+
         if (!Array.isArray(pids) || !pids.length) {
             return [];
         }
@@ -20,7 +34,7 @@ module.exports = function (Posts) {
         options.parse = options.hasOwnProperty('parse') ? options.parse : true;
         options.extraFields = options.hasOwnProperty('extraFields') ? options.extraFields : [];
 
-        const fields = ['pid', 'tid', 'content', 'uid', 'timestamp', 'deleted', 'upvotes', 'downvotes', 'replies', 'handle'].concat(options.extraFields);
+        const fields = ['pid', 'tid', 'content', 'uid', 'timestamp', 'deleted', 'endorse', 'upvotes', 'downvotes', 'replies', 'handle'].concat(options.extraFields);
 
         let posts = await Posts.getPostsFields(pids, fields);
         posts = posts.filter(Boolean);
@@ -58,6 +72,9 @@ module.exports = function (Posts) {
 
         posts = await parsePosts(posts, options);
         const result = await plugins.hooks.fire('filter:post.getPostSummaryByPids', { posts: posts, uid: uid });
+
+        console.assert(Array.isArray(result.posts), 'result should be an object with a "posts" property, which is an array of post summaries');
+        
         return result.posts;
     };
 
