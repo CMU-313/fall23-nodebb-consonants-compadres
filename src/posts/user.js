@@ -140,7 +140,7 @@ module.exports = function (Posts) {
             throw new Error('[[error:no-user]]');
         }
         let postData = await Posts.getPostsFields(pids, [
-            'pid', 'tid', 'uid', 'content', 'deleted', 'timestamp', 'upvotes', 'downvotes',
+            'pid', 'tid', 'uid', 'content', 'deleted', 'timestamp', 'endorse', 'upvotes', 'downvotes',
         ]);
         postData = postData.filter(p => p.pid && p.uid !== parseInt(toUid, 10));
         pids = postData.map(p => p.pid);
