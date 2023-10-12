@@ -31,7 +31,6 @@ Thumbs.load = async function (topicData) {
 };
 
 Thumbs.get = async function (tids) {
-    // Allow singular or plural usage
     let singular = false;
     if (!Array.isArray(tids)) {
         tids = [tids];
@@ -90,6 +89,11 @@ Thumbs.associate = async function ({ id, path, score }) {
 
     // Associate thumbnails with the main pid (only on local upload)
     if (!isDraft && isLocal) {
+        const mainPid = (await topics.getMainPids([id]))[0];
+        await posts.uploads.associate(mainPid, path.slice(1));
+    }
+    // Extra function for bypassing priviliges
+    else if (isDraft) {
         const mainPid = (await topics.getMainPids([id]))[0];
         await posts.uploads.associate(mainPid, path.slice(1));
     }
