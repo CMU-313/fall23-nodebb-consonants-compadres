@@ -7,8 +7,13 @@
     </div>
 
     <small class="pull-left">
+    <!-- If isAnonymous is true, hide the user name. -->
         <strong>
+            {{{if isAnonymous}}}
+            Anonymous User
+            {{{else}}}
             <a href="<!-- IF posts.user.userslug -->{config.relative_path}/user/{posts.user.userslug}<!-- ELSE -->#<!-- ENDIF posts.user.userslug -->" itemprop="author" data-username="{posts.user.username}" data-uid="{posts.user.uid}">{posts.user.displayname}</a>
+            {{{end}}}
         </strong>
 
         <!-- IMPORT partials/topic/badge.tpl -->
