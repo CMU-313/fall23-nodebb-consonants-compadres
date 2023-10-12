@@ -122,6 +122,15 @@ describe('Topic\'s', () => {
             });
         });
 
+        it('should check if is anonymous property exists', (done) => {
+            topics.post({ uid: topic.userId, title: topic.title, content: topic.content, cid: topic.categoryId, tags: ['anonymous'] }, (err, result) => {
+                assert.equal(err == null); // ensure no error from the post request
+                assert(result); // check if result exists
+                assert(result.topicData.isAnonymous); // ensures that the isAnonymous property exists
+                done();
+            });
+        });
+
         it('should return false for falsy uid', (done) => {
             topics.isOwner(topic.tid, 0, (err, isOwner) => {
                 assert.ifError(err);
