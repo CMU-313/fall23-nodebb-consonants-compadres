@@ -254,9 +254,6 @@ module.exports = function (Topics) {
         });
     }
 
-    Topics.deleteTag = async function (tag) {
-        await Topics.deleteTags([tag]);
-    };
 
     Topics.getTags = async function (start, stop) {
         return await getFromSet('tags:topic:count', start, stop);
@@ -368,7 +365,7 @@ module.exports = function (Topics) {
         await Topics.updateCategoryTagsCount(_.uniq(topicData.map(t => t.cid)), tags);
     };
 
-    Topics.removeTags = async function (tags, tids) {
+    Topics.changeTags = async function (tags, tids) {
         const topicData = await Topics.getTopicsFields(tids, ['tid', 'cid', 'tags']);
         const bulkRemove = [];
         const bulkSet = [];

@@ -89,6 +89,7 @@ define('categorySearch', ['alerts'], function (alerts) {
                 selectedCategory: ajaxify.data.selectedCategory,
                 allCategoriesUrl: ajaxify.data.allCategoriesUrl,
             }, function (html) {
+                
                 el.find('[component="category/list"]')
                     .replaceWith(html.find('[component="category/list"]'));
                 el.find('[component="category/list"] [component="category/no-matches"]')

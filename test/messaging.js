@@ -175,13 +175,13 @@ describe('Messaging Library', () => {
             assert.strictEqual(body.status.message, await translator.translate('[[error:no-user]]'));
         });
 
-        it('should add a user to room', async () => {
+        it('should add a user to the room', async () => {
             await callv3API('post', `/chats/${roomId}/users`, { uids: [mocks.users.herp.uid] }, 'foo');
             const isInRoom = await Messaging.isUserInRoom(mocks.users.herp.uid, roomId);
             assert(isInRoom);
         });
 
-        it('should get users in room', async () => {
+        it('should get users into the room', async () => {
             const { body } = await callv3API('get', `/chats/${roomId}/users`, {}, 'foo');
             assert(Array.isArray(body.response.users));
             assert.strictEqual(body.response.users.length, 3);

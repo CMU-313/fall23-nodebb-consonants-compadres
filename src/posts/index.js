@@ -27,6 +27,7 @@ require('./queue')(Posts);
 require('./diffs')(Posts);
 require('./uploads')(Posts);
 
+
 Posts.exists = async function (pids) {
     return await db.exists(
         Array.isArray(pids) ? pids.map(pid => `post:${pid}`) : `post:${pids}`
@@ -38,6 +39,22 @@ Posts.getPidsFromSet = async function (set, start, stop, reverse) {
         return [];
     }
     return await db[reverse ? 'getSortedSetRevRange' : 'getSortedSetRange'](set, start, stop);
+};
+
+// Check the status of the endorsements
+console.assert(Posts.constructor == Object);
+Posts.getEndorsed = async function (pid) {
+    console.assert(typeof pid, 'number');
+    return await db.get(`posts:${pid}:endorsed`);
+};
+
+// Flag sets true or false based on whether its true or not
+console.assert(Posts.constructor == Object); 
+Posts.toggleSetEndorsed = async function (pid, flag) {
+    console.assert(typeof pid, 'number');
+    console.assert(typeof flag, 'boolean');
+    const value = flag ? 'true' : 'false';
+    await db.set(`posts:${pid}:endorsed`, value);
 };
 
 Posts.getPostsByPids = async function (pids, uid) {

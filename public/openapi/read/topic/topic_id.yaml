@@ -42,7 +42,10 @@ get:
                     nullable: true
                   titleRaw:
                     type: string
-                  # Added isAnonymous boolean attribute.
+                  getEndorsed:
+                    type: boolean
+                  isEndorsed:
+                    type: boolean
                   isAnonymous:
                     type: boolean
                   tags:
