@@ -100,7 +100,7 @@
             <a component="post/downvote" href="#" class="<!-- IF posts.downvoted -->downvoted<!-- ENDIF posts.downvoted -->">
                 <i class="fa fa-chevron-down"></i>
             </a>
-            <!-- ENDIF !downvote:disabled -->
+            <!-- ENpDIF !downvote:disabled -->
         </span>
         <!-- ENDIF !reputation:disabled -->
 

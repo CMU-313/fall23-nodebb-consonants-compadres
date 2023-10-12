@@ -8,6 +8,7 @@ const controllers = require('./lib/controllers');
 
 const library = module.exports;
 
+
 library.init = async function (params) {
     const { router, middleware } = params;
     const routeHelpers = require.main.require('./src/routes/helpers');

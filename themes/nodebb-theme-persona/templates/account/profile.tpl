@@ -16,8 +16,11 @@
         <!-- ENDIF banned -->
         <!-- ENDIF isAdminOrGlobalModeratorOrModerator -->
 
+        
+
         <!-- IF selectedGroup.length -->
         <div class="text-center">
+            
         {{{each selectedGroup}}}
         <!-- IF selectedGroup.slug -->
             <a href="{config.relative_path}/groups/{selectedGroup.slug}"><small class="label group-label inline-block" style="color:{selectedGroup.textColor};background-color: {selectedGroup.labelColor};"><!-- IF selectedGroup.icon --><i class="fa {selectedGroup.icon}"></i> <!-- ENDIF selectedGroup.icon -->{selectedGroup.userTitle}</small></a>
@@ -30,6 +33,10 @@
         <!-- IF aboutme -->
         <span component="aboutme" class="text-center aboutme">{aboutmeParsed}</span>
         <!-- ENDIF aboutme -->
+       
+        <div class="account-type text-center">
+            <p class="accounttype">Account Type: {accounttype}</p>
+        </div>
 
         <div class="account-stats">
             <!-- IF !reputation:disabled -->

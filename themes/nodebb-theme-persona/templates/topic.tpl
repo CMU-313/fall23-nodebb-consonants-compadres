@@ -6,6 +6,7 @@
 <div class="row">
     <div class="topic <!-- IF widgets.sidebar.length -->col-lg-9 col-sm-12<!-- ELSE -->col-lg-12<!-- ENDIF widgets.sidebar.length -->">
         <div class="topic-header">
+            
             <h1 component="post/header" class="" itemprop="name">
                 <span class="topic-title">
                     <span component="topic/labels">
@@ -85,7 +86,6 @@
         <!-- IF config.enableQuickReply -->
         <!-- IMPORT partials/topic/quickreply.tpl -->
         <!-- ENDIF config.enableQuickReply -->
-
         <!-- IF config.usePagination -->
         <!-- IMPORT partials/paginator.tpl -->
         <!-- ENDIF config.usePagination -->
@@ -99,6 +99,8 @@
     </div>
 </div>
 
+
+
 <div data-widget-area="footer">
     {{{each widgets.footer}}}
     {{widgets.footer.html}}
@@ -110,3 +112,5 @@
     <!-- IMPORT partials/paginator.tpl -->
 </noscript>
 <!-- ENDIF !config.usePagination -->
+
+
