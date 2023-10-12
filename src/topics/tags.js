@@ -19,7 +19,13 @@ module.exports = function (Topics) {
         if (!Array.isArray(tags) || !tags.length) {
             return;
         }
-
+        var pattern = /^\d{5}$/;
+        if (pattern.test(tags.value)) {
+            tags.isCourse = true;
+        }
+        else {
+            tags.isCourse = false;
+        }
         const cid = await Topics.getTopicField(tid, 'cid');
         const topicSets = tags.map(tag => `tag:${tag}:topics`).concat(
             tags.map(tag => `cid:${cid}:tag:${tag}:topics`)

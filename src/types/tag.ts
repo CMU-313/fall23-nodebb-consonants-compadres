@@ -4,4 +4,5 @@ export type TagObject = {
   valueEscaped: string;
   color: string;
   bgColor: string;
+  courseColor: string;
 };
