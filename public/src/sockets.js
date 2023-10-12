@@ -133,7 +133,6 @@ app = window.app || {};
             }
         });
     }
-
     function handleInvalidSession() {
         socket.disconnect();
         require(['messages', 'logout'], function (messages, logout) {
@@ -146,13 +145,11 @@ app = window.app || {};
         if (app.flags._login || app.flags._logout) {
             return;
         }
-
         socket.disconnect();
         require(['messages'], function (messages) {
             messages.showSessionMismatch();
         });
     }
-
     function onConnect() {
         if (!reconnecting) {
             hooks.fire('action:connected');
