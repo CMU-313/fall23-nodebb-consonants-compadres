@@ -91,6 +91,10 @@ function escapeTitle(topicData) {
 }
 
 function modifyTopic(topic, fields) {
+
+    console.assert(topic.constructor === Object);
+    console.assert(typeof fields === 'string');
+
     if (!topic) {
         return;
     }
