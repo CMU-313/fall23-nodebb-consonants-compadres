@@ -4,6 +4,8 @@ const db = require('../database');
 const plugins = require('../plugins');
 const utils = require('../utils');
 
+
+// indicate the fields for a post object 
 const intFields = [
     'uid', 'pid', 'tid', 'deleted', 'timestamp', 'endorse',
     'upvotes', 'downvotes', 'deleterUid', 'edited',
