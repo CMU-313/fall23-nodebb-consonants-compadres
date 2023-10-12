@@ -322,8 +322,6 @@ define('forum/topic', [
             }
         }
     };
-    
-    
     function updateUserBookmark(index) {
         const bookmarkKey = 'topic:' + ajaxify.data.tid + ':bookmark';
         const currentBookmark = ajaxify.data.bookmark || storage.getItem(bookmarkKey);
@@ -359,7 +357,5 @@ define('forum/topic', [
             alerts.remove('bookmark');
         }
     }   
-
-
     return Topic;
 });
