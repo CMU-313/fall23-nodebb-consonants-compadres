@@ -9,7 +9,6 @@ define('forum/topic/votes', [
     Votes.addVoteHandler = function () {
         components.get('topic').on('mouseenter', '[data-pid] [component="post/vote-count"]', loadDataAndCreateTooltip);
     };
-
     function loadDataAndCreateTooltip(e) {
         e.stopPropagation();
 

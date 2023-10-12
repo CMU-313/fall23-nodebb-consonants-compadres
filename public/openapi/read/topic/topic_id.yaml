@@ -46,6 +46,8 @@ get:
                     type: boolean
                   isEndorsed:
                     type: boolean
+                  isAnonymous:
+                    type: boolean
                   tags:
                     type: array
                     items:

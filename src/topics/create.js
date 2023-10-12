@@ -18,6 +18,8 @@ const translator = require('../translator');
 
 module.exports = function (Topics) {
     Topics.create = async function (data) {
+
+        console.assert(data.constructor === Object);
         const tid = await db.incrObjectField('global', 'nextTid');
 
         let topicData = {
@@ -32,6 +34,8 @@ module.exports = function (Topics) {
             postcount: 0,
             viewcount: 0,
             isEndorsed: false,
+            // Set is isAnonymous to false as default.
+            isAnonymous: false,
         };
 
         if (Array.isArray(data.tags) && data.tags.length) {
