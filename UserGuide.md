@@ -33,15 +33,15 @@ The tests cover the entire process of creating anonymous posts, from the initial
 
 **Feature 2: Endorsement**
 
-**Overview:**
+**Overview**
 
 Each post will have a button named “endorse”, where each user can click and add 1 to the total number of endorsements. The total number will be reflected on the post interface.
 
-**Link to tests:**
+**Link to tests**
 
 The tests are in the test file named test/post.js (lines 315-323). 
 
-**How to test:**
+**How to test**
 1. These tests run through the following steps and ensure each of the steps return the expected results:
 2. Every post in each topic should contain an “endorse” button
 3. The posts.toggleSetEndorsed function should toggle the post’s isEndorsed variable
