@@ -4,7 +4,7 @@
 At the page of creating a new topic, there should be a place to create tags. Upon creating a tag called “anonymous” and submitting the form, the post should appear in the forum, but the user name should be shown as “Anonymous User.” When users click into the post, they will be able to see the title and the content, but not the user name. This feature allows anonymity for users to share their thoughts on the forum.
 
 **How to test:**
-The tests are in the test file named test/topics.js (lines 125-133). These tests run through the following steps and ensure each of the steps return the expected results:\n
+The tests are in the test file named test/topics.js (lines 125-143). These tests run through the following steps and ensure each of the steps return the expected results:\n
 1. The test function makes a POST request to create a new topic that contains ‘anonymous’ as one of its tags\n
 2. The function checks that the request has no errors\n
 3. The function checks that the request returns a valid results Object that contains topicData\n
