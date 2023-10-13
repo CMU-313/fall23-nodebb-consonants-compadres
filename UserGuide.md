@@ -58,7 +58,7 @@ The tests are in the test file named test/post.js (lines 315-323).
 4. The usability and behavior of the "endorse" button for users.
 5. Ensuring that endorsing a post does not lead to unintended changes in other parts of the user interface, maintaining overall application stability.
 
-**Why these tests are Sufficient**
+**Why these tests are sufficient**
 
 The tests comprehensively cover the critical aspects of the feature, including the presence and functionality of the "endorse" button, the core functionality of toggling the isEndorsed property, the accuracy of the endorsement count, and potential side effects on the user interface. The tests ensure the feature functions as expected from the user's perspective. Additionally, the tests are structured and focused, aiding in error detection and maintaining overall application stability. This comprehensive approach provides confidence in the proper functioning of the "Endorsement" feature.
 
