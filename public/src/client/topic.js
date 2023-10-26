@@ -356,6 +356,6 @@ define('forum/topic', [
         if (!currentBookmark || parseInt(index, 10) >= parseInt(currentBookmark, 10)) {
             alerts.remove('bookmark');
         }
-    }   
+    }
     return Topic;
 });
