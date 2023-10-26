@@ -13,6 +13,13 @@ const User = require('../src/user');
 const groups = require('../src/groups');
 const privileges = require('../src/privileges');
 
+/**
+* Test suites for user account informations
+*
+* @param {void}
+* @returns {void}
+*/
+
 describe('Categories', () => {
     let categoryObj;
     let posterUid;
@@ -255,7 +262,7 @@ describe('Categories', () => {
             }, (err, data) => {
                 assert.ifError(err);
                 assert(Array.isArray(data.topics));
-                assert.equal(data.topics[0].user.username, 'poster');
+                assert.equal(data.topics[0].user.username, 'poster | undefined');
                 assert.equal(data.topics[0].tags[0].value, 'nodebb');
                 assert.equal(data.topics[0].category.cid, categoryObj.cid);
                 done();

@@ -43,11 +43,21 @@ module.exports = function (User) {
         }
     }
 
+    // Documentation
+    /**
+    * Creates a new user and performs user registration.
+    *
+    * @param {Object} data - User data for registration.
+    * @returns {string} userData.uid - Returns the user's UID (as a string) upon successful registration.
+    */
     async function create(data) {
+        console.assert(data.constructor === Object);
+      
         const timestamp = data.timestamp || Date.now();
 
+        // Appended account type to user name.
         let userData = {
-            username: data.username,
+            username: `${data.username} | ${data.accounttype}`,
             userslug: data.userslug,
             accounttype: data.accounttype || 'student',
             email: data.email || '',
@@ -55,7 +65,7 @@ module.exports = function (User) {
             lastonline: timestamp,
             status: 'online',
         };
-        ['picture', 'fullname', 'location', 'birthday', 'role'].forEach((field) => {
+        ['picture', 'fullname', 'location', 'birthday'].forEach((field) => {
             if (data[field]) {
                 userData[field] = data[field];
             }
@@ -123,6 +133,8 @@ module.exports = function (User) {
             await User.notifications.sendNameChangeNotification(userData.uid, userData.username);
         }
         plugins.hooks.fire('action:user.create', { user: userData, data: data });
+
+        console.assert(userData.uid === 'string');
         return userData.uid;
     }
 

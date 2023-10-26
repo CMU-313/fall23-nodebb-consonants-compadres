@@ -310,6 +310,20 @@ describe('Post\'s', () => {
             });
         });
 
+    // Test for endorsing - currently doesnt work 
+    // since backend hasnt been fixed
+    describe('Checkifendorsing', () => {
+        it('checks whether the post has been endorsed', async () => {
+            await posts.toggleSetEndorsed(postData.pid, true);
+            const endorsed = await posts.getEndorsed(postData.pid);
+            console.assert(typeof endorsed, 'string');
+            assert.equal(endorsed, 'true');
+            assert.notequal(endorsed, 'false');
+        });
+    });
+
+    
+
         it('should load post tools', (done) => {
             socketPosts.loadPostTools({ uid: globalModUid }, { pid: postData.pid, cid: cid }, (err, data) => {
                 assert.ifError(err);

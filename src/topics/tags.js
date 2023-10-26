@@ -19,6 +19,19 @@ module.exports = function (Topics) {
         if (!Array.isArray(tags) || !tags.length) {
             return;
         }
+
+        // let regex1 = /\d\d\d\d\d/i;
+        // let regex2 = /\d\d-\d\d\d/i;
+        // for (let i = 0; i < tags.length; i++) {
+        //     const name = tags[i].value;
+        //     if(name.match(regex1) || name.match(regex2) ){
+        //         tags[i].isCourse = true;
+        //     }
+        //     else{
+        //         tags[i].isCourse = false;
+        //     }
+        // }
+
         const cid = await Topics.getTopicField(tid, 'cid');
         const topicSets = tags.map(tag => `tag:${tag}:topics`).concat(
             tags.map(tag => `cid:${cid}:tag:${tag}:topics`)
@@ -241,9 +254,6 @@ module.exports = function (Topics) {
         });
     }
 
-    Topics.deleteTag = async function (tag) {
-        await Topics.deleteTags([tag]);
-    };
 
     Topics.getTags = async function (start, stop) {
         return await getFromSet('tags:topic:count', start, stop);
@@ -355,7 +365,7 @@ module.exports = function (Topics) {
         await Topics.updateCategoryTagsCount(_.uniq(topicData.map(t => t.cid)), tags);
     };
 
-    Topics.removeTags = async function (tags, tids) {
+    Topics.changeTags = async function (tags, tids) {
         const topicData = await Topics.getTopicsFields(tids, ['tid', 'cid', 'tags']);
         const bulkRemove = [];
         const bulkSet = [];

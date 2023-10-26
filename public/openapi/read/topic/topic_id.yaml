@@ -42,6 +42,12 @@ get:
                     nullable: true
                   titleRaw:
                     type: string
+                  getEndorsed:
+                    type: boolean
+                  isEndorsed:
+                    type: boolean
+                  isAnonymous:
+                    type: boolean
                   tags:
                     type: array
                     items:
@@ -68,6 +74,8 @@ get:
                         deleted:
                           type: number
                         upvotes:
+                          type: number
+                        endorse:
                           type: number
                         downvotes:
                           type: number

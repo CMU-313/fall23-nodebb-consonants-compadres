@@ -13,13 +13,13 @@ const meta = require('../meta');
 const posts = require('../posts');
 const privileges = require('../privileges');
 const categories = require('../categories');
+const Categories = require('../categories');
 const translator = require('../translator');
 
 module.exports = function (Topics) {
     Topics.create = async function (data) {
-        // This is an internal method, consider using Topics.post instead
-        const timestamp = data.timestamp || Date.now();
 
+        console.assert(data.constructor === Object);
         const tid = await db.incrObjectField('global', 'nextTid');
 
         let topicData = {
@@ -27,18 +27,20 @@ module.exports = function (Topics) {
             uid: data.uid,
             cid: data.cid,
             mainPid: 0,
-            title: data.title,
+            title: ' ',
             slug: `${tid}/${slugify(data.title) || 'topic'}`,
             timestamp: timestamp,
             lastposttime: 0,
             postcount: 0,
             viewcount: 0,
+            isEndorsed: false,
+            // Set is isAnonymous to false as default.
+            isAnonymous: false,
         };
 
         if (Array.isArray(data.tags) && data.tags.length) {
             topicData.tags = data.tags.join(',');
         }
-
         const result = await plugins.hooks.fire('filter:topic.create', { topic: topicData, data: data });
         topicData = result.topic;
         await db.setObject(`topic:${topicData.tid}`, topicData);

@@ -6,6 +6,30 @@ const plugins = require('../plugins');
 const meta = require('../meta');
 
 module.exports = function (User) {
+    console.assert(User.constructor === Object);
+
+    /**
+    * This function checks if the username has an account type
+    * and adds it if it doesn't.
+    *
+    * @param {string} uid - The user's UID.
+    * @returns {void}
+    */
+    User.addAccountType = async function (uid) {
+        console.assert(typeof uid === 'string');
+
+        if (!(parseInt(uid, 10) > 0)) {
+            return;
+        }
+        const userData = await db.getObjectFields(`user:${uid}`, ['username', 'accounttype']);
+        if (userData.username.includes(' | ')) {
+            return;
+        }
+    
+        // append account type to username and update field
+        await User.setUserField(uid, 'username', userData.username + ' | ' + userData.accounttype);
+    };
+
     User.updateLastOnlineTime = async function (uid) {
         if (!(parseInt(uid, 10) > 0)) {
             return;

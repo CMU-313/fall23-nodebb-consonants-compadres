@@ -104,7 +104,7 @@ module.exports = function (Posts) {
             'uid', 'username', 'fullname', 'userslug',
             'reputation', 'postcount', 'topiccount', 'picture',
             'signature', 'banned', 'banned:expire', 'status',
-            'lastonline', 'groupTitle', 'mutedUntil', 'role',
+            'lastonline', 'groupTitle', 'mutedUntil',
         ];
         const result = await plugins.hooks.fire('filter:posts.addUserFields', {
             fields: fields,
@@ -134,13 +134,25 @@ module.exports = function (Posts) {
         return await user.isModerator(uid, cids);
     };
 
+
+    /**
+    * Change the owner of posts.
+    *
+    * @param {number[]} pids - An array of post IDs to change ownership.
+    * @param {number} toUid - The new user ID to transfer the posts to.
+    * @returns {Promise<Object[]>} An array of posts after ownership change.
+    */
     Posts.changeOwner = async function (pids, toUid) {
+
+        console.assert(Array.isArray(pids), 'pids should be an array of post IDs');
+        console.assert(typeof toUid === 'number', 'toUid should be a number');
+
         const exists = await user.exists(toUid);
         if (!exists) {
             throw new Error('[[error:no-user]]');
         }
         let postData = await Posts.getPostsFields(pids, [
-            'pid', 'tid', 'uid', 'content', 'deleted', 'timestamp', 'upvotes', 'downvotes',
+            'pid', 'tid', 'uid', 'content', 'deleted', 'timestamp', 'endorse', 'upvotes', 'downvotes',
         ]);
         postData = postData.filter(p => p.pid && p.uid !== parseInt(toUid, 10));
         pids = postData.map(p => p.pid);
@@ -185,6 +197,8 @@ module.exports = function (Posts) {
             posts: _.cloneDeep(postData),
             toUid: toUid,
         });
+
+        console.assert(Array.isArray(postData));
         return postData;
     };
 

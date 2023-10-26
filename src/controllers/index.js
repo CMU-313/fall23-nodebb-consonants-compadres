@@ -140,7 +140,20 @@ Controllers.login = async function (req, res) {
     res.render('login', data);
 };
 
+/**
+ * Handles the registration process and renders the registration page.
+ *
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @param {Function} next - The next middleware function.
+ * @returns {void}
+ */
 Controllers.register = async function (req, res, next) {
+    // Value assertion { Request, Response, NextFunction } from 'express';
+    console.assert(req.constructor === Object);
+    console.assert(res.constructor === Object);
+    console.assert(typeof next === 'function', "Parameter 'next' must be a function.");
+
     const registrationType = meta.config.registrationType || 'normal';
 
     if (registrationType === 'disabled') {
@@ -184,10 +197,12 @@ Controllers.register = async function (req, res, next) {
                 {
                     label: 'Account Type',
                     styleName: 'account-type',
+                    // Add the TA option to the UI.
                     html: `
                         <select class="form-control" name="account-type" aria-label="Account Type">
                             <option value="student" selected>Student</option>
                             <option value="instructor">Instructor</option>
+                            <option value="TA">TA</option>
                         </select>
                     `,
                 },

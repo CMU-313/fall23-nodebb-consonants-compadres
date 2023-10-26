@@ -14,7 +14,8 @@
                 <div class="navbar-search visible-xs pull-right">
                     <form action="{config.relative_path}/search" method="GET">
                         <button type="button" class="btn btn-link"><i class="fa fa-lg fa-fw fa-search" title="[[global:header.search]]"></i></button>
-                        <input autocomplete="off" type="text" class="form-control hidden" name="term" placeholder="[[global:search]]"/>
+                        <input autocomplete="off" type="text" class="form-control hidden" 
+                        name="term" placeholder="[[global:search]]"/>
                         <button class="btn btn-primary hidden" type="submit"></button>
                         <input type="text" class="hidden" name="in" value="{config.searchDefaultInQuick}" />
                     </form>
@@ -25,7 +26,8 @@
                 {{{ end }}}
 
                 <!-- IF brand:logo -->
-                <a href="<!-- IF brand:logo:url -->{brand:logo:url}<!-- ELSE -->{relative_path}/<!-- ENDIF brand:logo:url -->">
+                <a href="<!-- IF brand:logo:url -->{brand:logo:url}
+                <!-- ELSE -->{relative_path}/<!-- ENDIF brand:logo:url -->">
                     <img alt="{brand:logo:alt}" class="{brand:logo:display} forum-logo" src="{brand:logo}?{config.cache-buster}" />
                 </a>
                 <!-- ENDIF brand:logo -->
@@ -59,6 +61,7 @@
                             </li>
                             <li class="notif-dropdown-link">
                                 <div class="btn-group btn-group-justified">
+                                    <a role="button" href="#" class="btn btn-secondary mark-all-read"><i class="fa fa-check-double"></i> [[notifications:mark_all_read]]</a>
                                     <a role="button" href="#" class="btn btn-secondary mark-all-read"><i class="fa fa-check-double"></i> [[notifications:mark_all_read]]</a>
                                     <a class="btn btn-secondary" href="{relative_path}/notifications"><i class="fa fa-list"></i> [[notifications:see_all]]</a>
                                 </div>
