@@ -10,6 +10,7 @@
     },
     "main": "app.js",
     "scripts": {
+        "standardJS": "standard && node my-tests.js",
         "start": "npx tsc && node loader.js",
         "lint": "npx tsc && eslint --cache ./nodebb .",
         "test": "npx tsc && nyc --reporter=html --reporter=text-summary mocha",
@@ -146,6 +147,7 @@
         "zxcvbn": "4.4.2"
     },
     "devDependencies": {
+        "standard": "*",
         "@apidevtools/swagger-parser": "^10.1.0",
         "@commitlint/cli": "17.3.0",
         "@commitlint/config-angular": "17.3.0",
