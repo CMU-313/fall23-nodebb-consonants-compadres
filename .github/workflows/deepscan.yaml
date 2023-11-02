@@ -1,0 +1,38 @@
+name: Publish package
+
+on:
+  # Run manually
+  workflow_dispatch:
+    inputs:
+      publish_opt:
+        description: >
+          Option to use after `apm publish`. eg. <newversion>, major, minor, patch, --tag <tagname>
+        required: true
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  publish:
+
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    - run: |
+        git config --global user.email "support@deepscan.io"
+        git config --global user.name "DeepScan"
+        wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
+        sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
+        sudo apt-get update
+        sudo apt-get install atom
+    - name: Publish with option ${{ github.event.inputs.publish_opt }}
+      run: apm publish ${{ github.event.inputs.publish_opt }}
+      env:
+        ATOM_ACCESS_TOKEN: ${{ secrets.ATOM_ACCESS_TOKEN }}
