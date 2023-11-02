@@ -1,56 +1,81 @@
+"use strict";
 
-'use strict';
+const validator = require("validator");
+const _ = require("lodash");
 
-const validator = require('validator');
-const _ = require('lodash');
-
-const topics = require('../topics');
-const user = require('../user');
-const plugins = require('../plugins');
-const categories = require('../categories');
-const utils = require('../utils');
+const topics = require("../topics");
+const user = require("../user");
+const plugins = require("../plugins");
+const categories = require("../categories");
+const utils = require("../utils");
 
 module.exports = function (Posts) {
-
     /**
-    * Get a summary of posts by their IDs.
-    *
-    * @param {number[]} pids - An array of post IDs.
-    * @param {number} uid - The user ID.
-    * @param {object} options - Options for post summary.
-    * @returns {Promise<Object[]>} An array of post summaries.
-    */
+     * Get a summary of posts by their IDs.
+     *
+     * @param {number[]} pids - An array of post IDs.
+     * @param {number} uid - The user ID.
+     * @param {object} options - Options for post summary.
+     * @returns {Promise<Object[]>} An array of post summaries.
+     */
     Posts.getPostSummaryByPids = async function (pids, uid, options) {
-
-        console.assert(Array.isArray(pids), 'pids should be an array of post IDs');
-        console.assert(typeof uid === 'number', 'uid should be a number');
-        console.assert(typeof options === 'object', 'options should be an object');
+        console.assert(
+            Array.isArray(pids),
+            "pids should be an array of post IDs",
+        );
+        console.assert(typeof uid === "number", "uid should be a number");
+        console.assert(
+            typeof options === "object",
+            "options should be an object",
+        );
 
         if (!Array.isArray(pids) || !pids.length) {
             return [];
         }
 
-        options.stripTags = options.hasOwnProperty('stripTags') ? options.stripTags : false;
-        options.parse = options.hasOwnProperty('parse') ? options.parse : true;
-        options.extraFields = options.hasOwnProperty('extraFields') ? options.extraFields : [];
+        options.stripTags = options.hasOwnProperty("stripTags")
+            ? options.stripTags
+            : false;
+        options.parse = options.hasOwnProperty("parse") ? options.parse : true;
+        options.extraFields = options.hasOwnProperty("extraFields")
+            ? options.extraFields
+            : [];
 
-        const fields = ['pid', 'tid', 'content', 'uid', 'timestamp', 'deleted', 'endorse', 'upvotes', 'downvotes', 'replies', 'handle'].concat(options.extraFields);
+        const fields = [
+            "pid",
+            "tid",
+            "content",
+            "uid",
+            "timestamp",
+            "deleted",
+            "endorse",
+            "upvotes",
+            "downvotes",
+            "replies",
+            "handle",
+        ].concat(options.extraFields);
 
         let posts = await Posts.getPostsFields(pids, fields);
         posts = posts.filter(Boolean);
         posts = await user.blocks.filter(uid, posts);
 
-        const uids = _.uniq(posts.map(p => p && p.uid));
-        const tids = _.uniq(posts.map(p => p && p.tid));
+        const uids = _.uniq(posts.map((p) => p && p.uid));
+        const tids = _.uniq(posts.map((p) => p && p.tid));
 
         const [users, topicsAndCategories] = await Promise.all([
-            user.getUsersFields(uids, ['uid', 'username', 'userslug', 'picture', 'status']),
+            user.getUsersFields(uids, [
+                "uid",
+                "username",
+                "userslug",
+                "picture",
+                "status",
+            ]),
             getTopicAndCategories(tids),
         ]);
 
-        const uidToUser = toObject('uid', users);
-        const tidToTopic = toObject('tid', topicsAndCategories.topics);
-        const cidToCategory = toObject('cid', topicsAndCategories.categories);
+        const uidToUser = toObject("uid", users);
+        const tidToTopic = toObject("tid", topicsAndCategories.topics);
+        const cidToCategory = toObject("cid", topicsAndCategories.categories);
 
         posts.forEach((post) => {
             // If the post author isn't represented in the retrieved users' data,
@@ -68,39 +93,65 @@ module.exports = function (Posts) {
             post.timestampISO = utils.toISOString(post.timestamp);
         });
 
-        posts = posts.filter(post => tidToTopic[post.tid]);
+        posts = posts.filter((post) => tidToTopic[post.tid]);
 
         posts = await parsePosts(posts, options);
-        const result = await plugins.hooks.fire('filter:post.getPostSummaryByPids', { posts: posts, uid: uid });
+        const result = await plugins.hooks.fire(
+            "filter:post.getPostSummaryByPids",
+            { posts: posts, uid: uid },
+        );
 
-        console.assert(Array.isArray(result.posts), 'result should be an object with a "posts" property, which is an array of post summaries');
-        
+        console.assert(
+            Array.isArray(result.posts),
+            'result should be an object with a "posts" property, which is an array of post summaries',
+        );
+
         return result.posts;
     };
 
     async function parsePosts(posts, options) {
-        return await Promise.all(posts.map(async (post) => {
-            if (!post.content || !options.parse) {
-                post.content = post.content ? validator.escape(String(post.content)) : post.content;
+        return await Promise.all(
+            posts.map(async (post) => {
+                if (!post.content || !options.parse) {
+                    post.content = post.content
+                        ? validator.escape(String(post.content))
+                        : post.content;
+                    return post;
+                }
+                post = await Posts.parsePost(post);
+                if (options.stripTags) {
+                    post.content = stripTags(post.content);
+                }
                 return post;
-            }
-            post = await Posts.parsePost(post);
-            if (options.stripTags) {
-                post.content = stripTags(post.content);
-            }
-            return post;
-        }));
+            }),
+        );
     }
 
     async function getTopicAndCategories(tids) {
         const topicsData = await topics.getTopicsFields(tids, [
-            'uid', 'tid', 'title', 'cid', 'tags', 'slug',
-            'deleted', 'scheduled', 'postcount', 'mainPid', 'teaserPid',
+            "uid",
+            "tid",
+            "title",
+            "cid",
+            "tags",
+            "slug",
+            "deleted",
+            "scheduled",
+            "postcount",
+            "mainPid",
+            "teaserPid",
         ]);
-        const cids = _.uniq(topicsData.map(topic => topic && topic.cid));
+        const cids = _.uniq(topicsData.map((topic) => topic && topic.cid));
         const categoriesData = await categories.getCategoriesFields(cids, [
-            'cid', 'name', 'icon', 'slug', 'parentCid',
-            'bgColor', 'color', 'backgroundImage', 'imageClass',
+            "cid",
+            "name",
+            "icon",
+            "slug",
+            "parentCid",
+            "bgColor",
+            "color",
+            "backgroundImage",
+            "imageClass",
         ]);
         return { topics: topicsData, categories: categoriesData };
     }
